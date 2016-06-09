@@ -11,13 +11,13 @@ gulp.task('default', function(){
 });
 
 gulp.task('minify-css', function(){
-	return gulp.src('css/*.css')
+	return gulp.src('css/dev/*.css')
 		.pipe(cleanCSS())
 		.pipe(gulp.dest('css/build'));
 });
 
 gulp.task('minify-js', function(){
-	return gulp.src('js/*.js')
+	return gulp.src('js/dev/*.js')
 		.pipe(uglify())
 		.pipe(gulp.dest('js/build'));
 });
