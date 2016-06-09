@@ -378,7 +378,7 @@ var pizzaElementGenerator = function(i) {
   pizzaContainer.id = "pizza" + i;                // gives each pizza element a unique id
   pizzaImageContainer.classList.add("col-md-6");
 
-  pizzaImage.src = "images/pizza.png";
+  pizzaImage.src = "images/build/pizza-min.png";
   pizzaImage.classList.add("img-responsive");
   pizzaImageContainer.appendChild(pizzaImage);
   pizzaContainer.appendChild(pizzaImageContainer);
@@ -400,12 +400,9 @@ var pizzaElementGenerator = function(i) {
 
 // resizePizzas(size) is called when the slider in the "Our Pizzas" section of the website moves.
 //All containers have the same properties, calculations made outside the function to avoid forced reflow
-//var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
 var pizzaContainerArray = document.querySelectorAll(".randomPizzaContainer");
 //var pizzaContainerArrayOffW = pizzaContainerArray[0].offsetWidth;
 var resizePizzas = function(size) {
-  //var dx = determineDx(pizzaContainerArrayOffW, size);
-  //var newwidth = (pizzaContainerArrayOffW + dx) + 'px';
   window.performance.mark("mark_start_resize");   // User Timing API function
 
   // Changes the value for the size of the pizza above the slider
@@ -427,7 +424,7 @@ var resizePizzas = function(size) {
 
   changeSliderLabel(size);
 
-
+  //Change pizza sizes with a switch instead of a for loop
   function changePizzaSizes(size) {
     switch(size){
       case "1":
@@ -533,7 +530,7 @@ document.addEventListener('DOMContentLoaded', function() {
   for (var i = 0; i < 18; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
-    elem.src = "images/pizza-min.png";
+    elem.src = "images/build/pizza-min.png";
     elem.style.height = "100px";
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
