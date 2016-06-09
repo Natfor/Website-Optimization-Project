@@ -400,12 +400,9 @@ var pizzaElementGenerator = function(i) {
 
 // resizePizzas(size) is called when the slider in the "Our Pizzas" section of the website moves.
 //All containers have the same properties, calculations made outside the function to avoid forced reflow
-//var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
 var pizzaContainerArray = document.querySelectorAll(".randomPizzaContainer");
 //var pizzaContainerArrayOffW = pizzaContainerArray[0].offsetWidth;
 var resizePizzas = function(size) {
-  //var dx = determineDx(pizzaContainerArrayOffW, size);
-  //var newwidth = (pizzaContainerArrayOffW + dx) + 'px';
   window.performance.mark("mark_start_resize");   // User Timing API function
 
   // Changes the value for the size of the pizza above the slider
@@ -427,7 +424,7 @@ var resizePizzas = function(size) {
 
   changeSliderLabel(size);
 
-
+  //Change pizza sizes with a switch instead of a for loop
   function changePizzaSizes(size) {
     switch(size){
       case "1":
