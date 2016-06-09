@@ -427,34 +427,6 @@ var resizePizzas = function(size) {
 
   changeSliderLabel(size);
 
-  // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
-  //var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
-  /*function determineDx (elem, size) {
-    var oldwidth = elem;
-
-    var oldsize = oldwidth / windowwidth;
-
-    // Changes the slider value to a percent width
-    function sizeSwitcher (size) {
-      switch(size) {
-        case "1":
-          return 0.25;
-        case "2":
-          return 0.3333;
-        case "3":
-          return 0.5;
-        default:
-          console.log("bug in sizeSwitcher");
-      }
-    }
-
-    var newsize = sizeSwitcher(size);
-    var dx = (newsize - oldsize) * windowwidth;
-
-    return dx;
-  }*/
-
-  // Iterates through pizza elements on the page and changes their widths
 
   function changePizzaSizes(size) {
     switch(size){
@@ -487,8 +459,8 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
+var pizzasDiv = document.getElementById("randomPizzas");//*CHANGE* get the pizzas div var out of the fo loop
 for (var i = 2; i < 100; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -522,12 +494,11 @@ function updatePositions(items) {
   window.performance.mark("mark_start_frame");
 
   var items = document.querySelectorAll('.mover');
+
+  //Retrieving document.body.scrollTop outside of the for loop to avoid forced reflow when scrolling the page
   var topScroll = document.body.scrollTop;
 
-  //spliting original for loop in two
-  /*for (var i -0; i < 5; i++){
-    var phase = Math.sin((topScroll / 1250) + i);
-  }*/
+//Making sure innerWidth can be retrieved, once retrieved divide the value by two to be able to calculate the pizza positions
   if (window.innerWidth > 0){
     var halfScreen = window.innerWidth / 2;
   }
@@ -535,6 +506,8 @@ function updatePositions(items) {
 
   for (var i = 0; i < items.length; i++) {
     var phase = Math.sin((topScroll / 1250) + (i % 5));
+
+    //Replaced style.left with style.transform to reduce painting
     items[i].style.transform = 'translateX('+(items[i].basicLeft + 100 * phase - halfScreen) + 'px)';
   }
 
