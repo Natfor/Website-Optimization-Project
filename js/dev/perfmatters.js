@@ -14,9 +14,9 @@ window.addEventListener("load", function(event) {
 });
 
 //Load
-/*(function() {
+(function() {
   var link = document.createElement('link');
   link.rel = "stylesheet";
   link.href = "//fonts.googleapis.com/css?family=Open+Sans:400,700";
   document.querySelector("head").appendChild(link);
-})();*/
+})();
