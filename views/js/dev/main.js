@@ -493,7 +493,8 @@ function updatePositions(items) {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  var items = document.querySelectorAll('.mover');
+  //changed to getElementsByClassName
+  var items = document.getElementsByClassName('mover');
 
   //Retrieving document.body.scrollTop outside of the for loop to avoid forced reflow when scrolling the page
   var topScroll = document.body.scrollTop / 1250;
@@ -511,15 +512,6 @@ function updatePositions(items) {
     items[i].style.transform = 'translateX('+(items[i].basicLeft + 100 * phase - halfScreen) + 'px)';
   }
 
-  /*var phases = [];
-  for (var i = 0; i < 5; i++) {
-      phases.push(Math.sin(topScroll + i)); // you can also multiply by 100 so you don't have to do it in the next for loop
-  }
-
-  for (var i = 0; i < items.length; i++) {
-      items[i].style.transform = 'translateX('+(items[i].basicLeft + 100 * phases - halfScreen) + 'px)';
-      // this way it's just a lookup, which is cheaper than a calculation
-  }*/
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
   // Super easy to create custom metrics.
