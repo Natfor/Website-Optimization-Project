@@ -2,7 +2,7 @@
 
 // grab our gulp packages
 var gulp = require('gulp'),
-		cleanCSS = require('gulp-clean-css');
+		cleanCSS = require('gulp-clean-css'),
 		uglify = require('gulp-uglify');
 
 //create a default task and just log a message
