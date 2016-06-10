@@ -13,7 +13,7 @@ window.addEventListener("load", function(event) {
   logCRP();
 });
 
-//Load
+//Load google font and append link to index
 (function() {
   var link = document.createElement('link');
   link.rel = "stylesheet";
