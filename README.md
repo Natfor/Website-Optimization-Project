@@ -2,7 +2,7 @@
 The entire project is hosted in Github Pages, you can load the site using this url: http://natfor.github.io/Website-Optimization-Project
 
 Gulp was used to minify js and css files, the gulp file is included in the repository (gulpfile.js)
-The gulp packages used were [gulp-clean-css](https://www.npmjs.com/package/gulp-clean-css), and [gulp-uglify](https://www.npmjs.com/package/gulp-uglify). The package.json file for both packages are included in the repository each in a folder named after the gulp package it belongs to.
+The gulp packages used were [gulp-clean-css](https://www.npmjs.com/package/gulp-clean-css), and [gulp-uglify](https://www.npmjs.com/package/gulp-uglify).
 
 ### Part 1: Optimize PageSpeed Insights score for index.html
 
