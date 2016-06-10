@@ -2,6 +2,7 @@
 The entire project is hosted in Github Pages, you can load the site using this url: http://natfor.github.io/Website-Optimization-Project
 
 Gulp was used to minify js and css files, the gulp file is included in the repository (gulpfile.js)
+The gulp packages used were [gulp-clean-css](https://www.npmjs.com/package/gulp-clean-css), and [gulp-uglify](https://www.npmjs.com/package/gulp-uglify). The package.json file for both packages are included in the repository each in a folder named after the gulp package it belongs to.
 
 ### Part 1: Optimize PageSpeed Insights score for index.html
 
@@ -24,12 +25,12 @@ The following changes were made to optimize pizza.html:
 * Pizzeria image was resized and compressed, and pizza image was compressed. The compressed images are located in views/img/build, the original images are located in views/img/dev.
 * In the resize pizza function(line 405):
     * The for loop used to change the size of the pizzas was changed for a switch. Percentage values are used to define the different sizes
-    * The pizzaContainerArray variable is outside of the function, and the call to document.querySelectorAll(".randomPizzaContainer) is made in the same line to avoid forced reflows that were being generated when the variable was being populated in a for loop
+    * The pizzaContainerArray variable is located in the changePizzaSizes function. To populate the array a call to document.getElementsByClassName('randomPizzaContainer') is made in the same line, not on the for loop to avoid forced reflows (line 431)
 * Added will-change: transform and transform: translateZ(0) to .ramdomPizzaContainer to get the pizzas to be resized on their own layer (style.css)
 * Scroll and position update changes
-    * The call to document.body.scrollTop was moved to a variable placed outside of the for loop to avoid forced reflows on scroll (line 496)
-    * Changed the amount of pizzas generated from 200 to 18, no more than 18 pizzas are actually visible for the user (line 530)
-    * Changed the columns for pizzas to 6 (line 528)
-    * In the UpdatePostitions function (line 489) I replaced style.left with style.transform, and for the translateX to work I retrieved the innerwidth of the screen and divided it by 2
+    * Items with .mover class are now retrieved using getElementsByClassName (line 497)
+    * The call to document.body.scrollTop was moved to a variable placed outside of the for loop to avoid forced reflows on scroll (line 500)
+    * In the UpdatePostitions function (line 492) I replaced style.left with style.transform, and for the translateX to work I retrieved the innerwidth of the screen and divided it by 2
+    * RequestAnimationFrame is being used to smoothen the animation (line 536)
 
 The referenced lines can be found in the js file located in views/js/dev
