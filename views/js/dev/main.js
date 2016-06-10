@@ -400,10 +400,11 @@ var pizzaElementGenerator = function(i) {
 
 // resizePizzas(size) is called when the slider in the "Our Pizzas" section of the website moves.
 //All containers have the same properties, calculations made outside the function to avoid forced reflow
-var pizzaContainerArray = document.querySelectorAll(".randomPizzaContainer");
+
 //var pizzaContainerArrayOffW = pizzaContainerArray[0].offsetWidth;
 var resizePizzas = function(size) {
   window.performance.mark("mark_start_resize");   // User Timing API function
+  var pizzaContainerArray = document.querySelectorAll(".randomPizzaContainer");
 
   // Changes the value for the size of the pizza above the slider
   function changeSliderLabel(size) {
@@ -426,6 +427,8 @@ var resizePizzas = function(size) {
 
   //Change pizza sizes with a switch instead of a for loop
   function changePizzaSizes(size) {
+    //Retrieving the random pizza elements outside of the loop to avoid forced reflows
+    var pizzaContainerArray = document.getElementsByClassName("randomPizzaContainer");
     switch(size){
       case "1":
         newwidth = 25;
@@ -493,7 +496,7 @@ function updatePositions(items) {
   var items = document.querySelectorAll('.mover');
 
   //Retrieving document.body.scrollTop outside of the for loop to avoid forced reflow when scrolling the page
-  var topScroll = document.body.scrollTop;
+  var topScroll = document.body.scrollTop / 1250;
 
 //Making sure innerWidth can be retrieved, once retrieved divide the value by two to be able to calculate the pizza positions
   if (window.innerWidth > 0){
@@ -502,11 +505,21 @@ function updatePositions(items) {
 
 
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((topScroll / 1250) + (i % 5));
+    var phase = Math.sin((topScroll) + (i % 5));
 
     //Replaced style.left with style.transform to reduce painting
     items[i].style.transform = 'translateX('+(items[i].basicLeft + 100 * phase - halfScreen) + 'px)';
   }
+
+  /*var phases = [];
+  for (var i = 0; i < 5; i++) {
+      phases.push(Math.sin(topScroll + i)); // you can also multiply by 100 so you don't have to do it in the next for loop
+  }
+
+  for (var i = 0; i < items.length; i++) {
+      items[i].style.transform = 'translateX('+(items[i].basicLeft + 100 * phases - halfScreen) + 'px)';
+      // this way it's just a lookup, which is cheaper than a calculation
+  }*/
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
   // Super easy to create custom metrics.
@@ -516,18 +529,30 @@ function updatePositions(items) {
     var timesToUpdatePosition = window.performance.getEntriesByName("measure_frame_duration");
     logAverageFrame(timesToUpdatePosition);
   }
+  window.animating = false;
 }
 
 
 
-// runs updatePositions on scroll
-window.addEventListener('scroll', updatePositions);
+// Using request animation frame, code taken from Udacity forum (mcs user): https://discussions.udacity.com/t/optimizing-updatepositions-and-paint/40633/4?u=natalia_558655
+window.animating = false;
+
+
+function animationReadyCheck() {
+  if ( !window.animating ) {
+    window.animating = true;
+    window.requestAnimationFrame(updatePositions);
+  }
+}
+
+window.addEventListener('scroll', animationReadyCheck);
+
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
-  var cols = 6;
+  var cols = 8;
   var s = 256;
-  for (var i = 0; i < 18; i++) {
+  for (var i = 0; i < 24; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/build/pizza-min.png";
