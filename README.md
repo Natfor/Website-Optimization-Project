@@ -32,4 +32,4 @@ The following changes were made to optimize pizza.html:
     * Changed the columns for pizzas to 6 (line 528)
     * In the UpdatePostitions function (line 489) I replaced style.left with style.transform, and for the translateX to work I retrieved the innerwidth of the screen and divided it by 2
 
-the referenced lines can be found in the files in the dev folders (non minified files)
+The referenced lines can be found in the js file located in views/js/dev
